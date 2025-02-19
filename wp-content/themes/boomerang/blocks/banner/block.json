@@ -1,0 +1,9 @@
+{
+  "apiVersion": 2,
+  "name": "boomerang/banner",
+  "title": "Баннер",
+  "category": "layout",
+  "icon": "megaphone",
+  "editorScript": "file:./banner.js",
+  "editorStyle": "file:./banner.css"
+}
