@@ -1,21 +1,26 @@
 <?php
 // Подключаем стили и скрипты
-function boomerang_enqueue_scripts() {
+function boomerang_enqueue_scripts()
+{
     wp_enqueue_style('boomerang-main', get_template_directory_uri() . '/assets/css/main.css');
     wp_enqueue_script('boomerang-scripts', get_template_directory_uri() . '/assets/js/scripts.js', ['jquery'], null, true);
 }
+
 add_action('wp_enqueue_scripts', 'boomerang_enqueue_scripts');
 
 // Регистрация меню
-function boomerang_register_menus() {
+function boomerang_register_menus()
+{
     register_nav_menus([
         'main_menu' => 'Главное меню',
     ]);
 }
+
 add_action('after_setup_theme', 'boomerang_register_menus');
 
 // Регистрация кастомного типа записей "Слоты"
-function register_slot_post_type() {
+function register_slot_post_type()
+{
     register_post_type('slot', [
         'labels' => [
             'name' => 'Слоты',
@@ -28,10 +33,12 @@ function register_slot_post_type() {
         'show_in_rest' => true
     ]);
 }
+
 add_action('init', 'register_slot_post_type');
 
 // API для вывода JSON со слотами
-function get_slots_api() {
+function get_slots_api()
+{
     $args = ['post_type' => 'slot', 'posts_per_page' => -1];
     $query = new WP_Query($args);
     $slots = [];
@@ -48,30 +55,34 @@ function get_slots_api() {
 
     return rest_ensure_response($slots);
 }
-function register_slots_api_route() {
+
+function register_slots_api_route()
+{
     register_rest_route('testtask/v1', '/slots/get', [
         'methods' => 'GET',
         'callback' => 'get_slots_api',
         'permission_callback' => '__return_true',
     ]);
 }
+
 add_action('rest_api_init', 'register_slots_api_route');
 
 
-function slots_shortcode($atts) {
+function slots_shortcode($atts)
+{
     // Set default attributes
     $atts = shortcode_atts(array(
         'posts_per_page' => 5, // Default number of posts
-        'order'          => 'DESC', // Sorting order
-        'orderby'        => 'date' // Order by date
+        'order' => 'DESC', // Sorting order
+        'orderby' => 'date' // Order by date
     ), $atts, 'slots');
 
     // Query slots post type
     $query = new WP_Query(array(
-        'post_type'      => 'slot',
+        'post_type' => 'slot',
         'posts_per_page' => $atts['posts_per_page'],
-        'order'          => $atts['order'],
-        'orderby'        => $atts['orderby']
+        'order' => $atts['order'],
+        'orderby' => $atts['orderby']
     ));
 
     // Start output buffer
@@ -105,7 +116,8 @@ add_shortcode('slots', 'slots_shortcode');
 
 
 //slider
-function custom_slider_shortcode() {
+function custom_slider_shortcode()
+{
     ob_start();
     ?>
     <div class="custom-slider">
@@ -122,7 +134,7 @@ function custom_slider_shortcode() {
                 </div>
 
                 <div class="swiper-slide">
-                    <img src="assets/sdad.png" alt=""  style="width: 300px;height: 300px">
+                    <img src="assets/sdad.png" alt="" style="width: 300px;height: 300px">
                     <div class="slider-text">
                         <h2>Эксклюзивное Предложение</h2>
                         <p><span class="highlight">50% ДО</span> 150,000₸ + 100 ФС</p>
@@ -141,43 +153,75 @@ function custom_slider_shortcode() {
     <?php
     return ob_get_clean();
 }
+
 add_shortcode('custom_slider', 'custom_slider_shortcode');
 
-function deposit_bonus_shortcode() {
+function deposit_bonus_shortcode()
+{
     ob_start();
     ?>
-    <div class="deposit-bonus-container">
-        <h2 class="deposit-title">СДЕЛАЙТЕ ДЕПОЗИТ И ИГРАЙТЕ</h2>
+    <div class="deposit-container">
+        <img src="<?= get_theme_file_uri() . '/assets/red-boomerang.webp'?>" alt="black-boomerang" class="red-boomerang">
+        <div>
+            <h2 class="deposit-title">СДЕЛАЙТЕ ДЕПОЗИТ И ИГРАЙТЕ</h2>
 
-        <!-- Инфо о бонусе -->
-        <div class="bonus-box">
-            <div class="bonus-icon">🍒</div>
-            <p class="bonus-text">
-                <span class="highlight">Приветственный бонус</span><br>
-                100% до €500 + 200 ФС
-            </p>
+            <div class="deposit-bonus-container">
+
+                <div class="bonus-box">
+                    <div class="bonus-icon">🍒</div>
+                    <div class="bonus-content">
+                        <p class="bonus-title">Приветственный бонус</p>
+                        <p class="bonus-text">
+                            <span class="highlight">100% до €500 + 200 ФС</span>
+                        </p>
+                    </div>
+                    <div class="bonus-arrow">
+                        <span class="arrow_span">
+                            <img src="<?= get_theme_file_uri() . '/assets/arrow.svg' ?>"
+                                 alt="" class="arrow_svg">
+                        </span>
+                    </div>
+                </div>
+
+            <div class="deposit-input-container">
+                <div class="deposit-input-section">
+                    <label>
+                        <input type="number" class="deposit-input" value="60" min="10" step="10">
+                    </label>
+                </div>
+                <div class="deposit-input-section-two">
+                    <label class="custom-select-container">
+                        <select class="currency-select">
+                            <option value="USD" style="background-color: #c2c2c2;width: 45%;">USD</option>
+                            <option value="EUR" selected style="background-color: #c2c2c2;width: 45%;">EUR</option>
+                            <option value="RUB" style="background-color: #c2c2c2;width: 45%;">RUB</option>
+                        </select>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="btn is-60 vip-slider__btn show-user" style="background-color: #ffcd34">
+                <span class="btn_span">Играть сейчас </span>
+            </div>
+
         </div>
-
-        <!-- Поле для ввода суммы -->
-        <div class="deposit-input-container">
-            <input type="number" class="deposit-input" value="60" min="10" step="10">
-            <span class="currency">EUR</span>
+            <div class="social-icons">
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/visa-svgrepo-com.svg'?>" alt="visa_log" class="icon_in_deposit"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/mastercard.svg'?>" alt="mastercard" class="icon_in_deposit"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/bank.svg'?>" alt="paymsystem_footer_banktransfer" class="icon_in_deposit"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/ethereum.svg'?>" alt="ethereum" class="ethereum"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/usdt.svg'?>" alt="ethereum" class="ethereum"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/bitcoin-btc-logo.svg'?>" alt="bitcoin-btc-logo.svg" class="bitcoin"></span>
+            </div>
         </div>
-
-        <!-- Кнопка -->
-        <a href="#" class="deposit-button">Играть сейчас</a>
-
-        <!-- Иконки соцсетей (можно добавить ссылки) -->
-        <div class="social-icons">
-            <span>🔵</span>
-            <span>🟡</span>
-            <span>🟢</span>
-            <span>🔴</span>
-        </div>
+        <img src="<?= get_theme_file_uri() . '/assets/gray-boomerang.png'?>" alt="gray-boomerang" class="gray-boomerang">
     </div>
+
     <?php
     return ob_get_clean();
 }
+
 add_shortcode('deposit_bonus', 'deposit_bonus_shortcode');
 
 ?>

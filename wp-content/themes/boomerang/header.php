@@ -14,7 +14,7 @@
         <div class="header-left">
             <div class="logo">
                 <a href="<?php echo home_url(); ?>">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo1.png" alt="Boomerang Casino">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/logo2.svg" alt="Boomerang Casino">
                 </a>
             </div>
 
@@ -29,12 +29,16 @@
 
         <div class="header-right">
             <div class="auth-buttons">
-                <button class="btn login">Войти</button>
-                <button class="btn register">Регистрация</button>
+                <div class="btn is-60 vip-slider__btn login" style="background-color: #292c32">
+                    <span class="btn_span_login with">Войти</span>
+                </div>
+                <div class="btn is-60 vip-slider__btn show-user" style="background-color: #ffcd34;">
+                    <span class="btn_span_register">Регистрация</span>
+                </div>
             </div>
 
             <button class="burger-menu">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/menu-icon.svg" alt="Меню">
+                <img src="<?= get_theme_file_uri() . '/assets/menu-icon.svg' ; ?>" alt="Меню">
             </button>
         </div>
     </div>

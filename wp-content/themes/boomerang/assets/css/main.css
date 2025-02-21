@@ -14,11 +14,11 @@ body {
 /* Header */
 .header {
     background: black;
-    padding: 15px 50px;
+    padding: 15px 0;
 }
 
 .container {
-    width: 1200px;
+    padding: 0 65px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,40 +79,66 @@ body {
     border-radius: 20px;
     font-weight: bold;
     color: white;
-    background: #292c32 url('../hover.svg') center/cover no-repeat;
-    transition: background 0.3s ease;
 }
+
+.show-user {
+    background: #292c32 url('../hoverbutoncolorstatic.svg') center/cover no-repeat;
+}
+
+.show-user:hover {
+    background: #292c32 url('../hover.svg') center/cover no-repeat;
+}
+
+.btn_span {
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 40px;
+}
+
+.btn_span_register {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
 
 /* Кнопка Войти */
 .login {
-    background-color: #292c32;
     border: 2px solid #292c32;
+    background: #292c32 url('../hover-gray.svg') no-repeat center/cover;
 }
 
 .login:hover {
-    background: #3e5db9 url('../hover.svg') no-repeat center/cover;
+    background: #3e5db9 url('../hover-blue.svg') no-repeat center/cover;
 }
 
 /* Кнопка Регистрация */
 .register {
-    background: linear-gradient(90deg, #FFD700, #FFC107);
+    background: #ffcd34;
     color: black;
 }
 
 .register:hover {
-    background: linear-gradient(90deg, #FFC107, #FFD700);
+    background: #292c32 url('../hover.svg') center/cover no-repeat;
 }
 
 /* Бургер-меню */
 .burger-menu {
-    display: none;
-    background: none;
     border: none;
     cursor: pointer;
+    background: url('../manu-bg.svg') center/cover no-repeat;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .burger-menu img {
-    width: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 /* Banner */
@@ -339,20 +365,27 @@ body {
     background: #FFD700 !important;
 }
 
-
-
-
-
-
 /* Контейнер */
 .deposit-bonus-container {
     width: 100%;
-    max-width: 500px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(255, 215, 0, 0.2));
+    max-width: 450px;
+    background: #292d32;
     padding: 20px;
     text-align: center;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.deposit-container {
+    width: 100%;
+    background: url("../boom-main-image-banner.svg");
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Заголовок */
@@ -360,16 +393,58 @@ body {
     font-size: 22px;
     font-weight: bold;
     color: white;
+    text-shadow: 2px 0px 3px #FFE785, 0px 0px 20px #ffd700;
 }
 
-/* Бонус-инфо */
+.deposit-input-section {
+    background-color: #c2c2c2;
+    border-radius: 30px;
+    width: 45%;
+}
+
+.deposit-input-section-two {
+    width: 81%;
+}
+
+.currency-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 85%;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    background: #c2c2c2;
+    color: #0c0d0e66;
+    font-size: 21px;
+    outline: none;
+    font-weight: 900;
+}
+
+.custom-select-container::after {
+    content: "⏷";
+    font-size: 15px;
+    color: #0c0d0e66;
+    position: relative;
+    right: 40px;
+    pointer-events: none;
+    bottom: 3px;
+}
+
+
 .bonus-box {
     display: flex;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 10px;
-    margin: 10px 0;
+    justify-content: space-between;
+    background: linear-gradient(to right, #000, #222);
+    border: 2px solid #FFD700;
+    border-radius: 12px;
+    padding: 10px 15px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .bonus-icon {
@@ -377,40 +452,78 @@ body {
     margin-right: 10px;
 }
 
+.bonus-content {
+    flex-grow: 1;
+}
+
+.bonus-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7); /* Lighter white */
+    margin: 0;
+}
+
 .bonus-text {
     font-size: 16px;
-    color: white;
+    font-weight: bold;
+    margin: 3px 0 0 0;
 }
 
 .highlight {
-    font-weight: bold;
     color: #FFD700;
+}
+
+.bonus-arrow {
+    font-size: 16px;
+    color: #FFD700;
+    transition: transform 0.3s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    background: #ffd70078;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow_svg {
+    width: 15px;
+    height: 15px;
+}
+
+.arrow_span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bonus-box:hover .bonus-arrow {
+    transform: rotate(180deg);
 }
 
 /* Поле ввода депозита */
 .deposit-input-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    background: rgba(255, 255, 255, 0.2);
+    background: #292d32;
     border-radius: 10px;
     padding: 10px;
     margin: 10px 0;
 }
 
 .deposit-input {
-    width: 60%;
     padding: 10px;
     border: none;
     background: transparent;
-    color: white;
-    font-size: 18px;
-    text-align: center;
+    color: #0c0d0e66;
+    font-size: 21px;
     outline: none;
+    font-weight: 900;
 }
 
 .currency {
-    font-size: 18px;
+    font-size: 21px;
     color: white;
     margin-left: 10px;
 }
@@ -443,22 +556,58 @@ body {
 .social-icons span {
     font-size: 24px;
     margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+
+img.red-boomerang {
+    width: 180px;
+    padding-bottom: 80px;
+    transform: rotate(10deg);
+}
+
+.gray-boomerang {
+    transform: rotate(190deg);
+    width: 210px;
+    padding: 10px;
+}
+
+.icon_in_deposit {
+    width: 30px;
+    height: 20px;
+}
+
+.icon_span {
+    border-radius: 50px;
+    background: white;
+    width: 30px;
+    height: 30px;
+    color: #0c0d0e66;
+    font-weight: 900;
+}
+
+.ethereum {
+    width: 30px;
+}
 
 /* Адаптивность */
 @media screen and (max-width: 1024px) {
     .container {
         width: 90%;
     }
+
     .header {
         flex-direction: column;
         text-align: center;
     }
+
     .nav .menu {
         flex-wrap: wrap;
         justify-content: center;
     }
+
     .search-container {
         width: 90%;
     }
@@ -468,13 +617,16 @@ body {
     .auth-buttons {
         display: none;
     }
+
     .burger-menu {
         display: block;
     }
+
     .filters {
         flex-direction: column;
         align-items: center;
     }
+
     .slots-grid {
         flex-wrap: wrap;
         justify-content: center;
@@ -485,9 +637,11 @@ body {
     .banner h1 {
         font-size: 32px;
     }
+
     .banner .promo-text {
         font-size: 20px;
     }
+
     .filters {
         flex-direction: column;
         gap: 5px;
