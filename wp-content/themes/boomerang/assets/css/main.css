@@ -1,4 +1,3 @@
-/* Базовые настройки */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +10,6 @@ body {
     color: #fff;
 }
 
-/* Header */
 .header {
     background: black;
     padding: 15px 0;
@@ -25,7 +23,6 @@ body {
     margin: 0 auto;
 }
 
-/* Левая часть (Логотип и меню) */
 .header-left {
     display: flex;
     align-items: center;
@@ -36,7 +33,6 @@ body {
     height: 50px;
 }
 
-/* Меню */
 .nav .menu {
     list-style: none;
     display: flex;
@@ -59,7 +55,6 @@ body {
     color: #FFC107;
 }
 
-/* Правая часть (Кнопки авторизации + бургер) */
 .header-right {
     display: flex;
     align-items: center;
@@ -103,8 +98,6 @@ body {
 
 }
 
-
-/* Кнопка Войти */
 .login {
     border: 2px solid #292c32;
     background: #292c32 url('../hover-gray.svg') no-repeat center/cover;
@@ -114,7 +107,6 @@ body {
     background: #3e5db9 url('../hover-blue.svg') no-repeat center/cover;
 }
 
-/* Кнопка Регистрация */
 .register {
     background: #ffcd34;
     color: black;
@@ -124,7 +116,6 @@ body {
     background: #292c32 url('../hover.svg') center/cover no-repeat;
 }
 
-/* Бургер-меню */
 .burger-menu {
     border: none;
     cursor: pointer;
@@ -139,14 +130,6 @@ body {
 .burger-menu img {
     width: 20px;
     height: 20px;
-}
-
-/* Banner */
-.banner {
-    background: url('../banner-bg.jpg') center/cover no-repeat;
-    text-align: center;
-    padding: 80px 20px;
-    position: relative;
 }
 
 .banner h1 {
@@ -178,7 +161,6 @@ body {
     background: linear-gradient(90deg, #FFC107, #FFD700);
 }
 
-/* Форма поиска */
 .search-container {
     display: flex;
     justify-content: center;
@@ -222,7 +204,6 @@ body {
     background: #FFD700;
 }
 
-/* Фильтры */
 .filters {
     display: flex;
     justify-content: center;
@@ -249,7 +230,6 @@ body {
     color: black;
 }
 
-/* Блок слотов */
 .slots {
     margin-top: 40px;
 }
@@ -286,17 +266,6 @@ body {
     border-bottom: 2px solid #FFC107;
 }
 
-/* Контейнер слайдера Custom*/
-.custom-slider {
-    width: 100%;
-    max-width: 1400px;
-    height: 500px;
-    position: relative;
-    margin: auto;
-    overflow: hidden;
-}
-
-/* Слайды */
 .swiper-slide {
     display: flex;
     align-items: center;
@@ -308,64 +277,29 @@ body {
     height: 100%;
 }
 
-/* Фоны для каждого слайда */
-.slide-1 {
-    background-image: url('/wp-content/uploads/slider1.jpg'); /* Путь к картинке */
-}
 
-.slide-2 {
-    background-image: url('/wp-content/uploads/slider2.jpg'); /* Путь к картинке */
-}
-
-/* Контент */
-.slider-content {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 30px;
-    border-radius: 15px;
-}
-
-/* Заголовки */
 .swiper-slide h2 {
     font-size: 48px;
     font-weight: bold;
     text-shadow: 2px 2px 4px black;
 }
 
-/* Подзаголовки */
 .swiper-slide p {
     font-size: 30px;
     font-weight: bold;
     text-shadow: 2px 2px 4px black;
 }
 
-/* Кнопка */
-.slider-button {
-    display: inline-block;
-    padding: 12px 24px;
-    background: linear-gradient(to right, #FFD700, #FFA500);
-    border-radius: 25px;
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 20px;
-}
 
-.slider-button:hover {
-    background: linear-gradient(to right, #FFA500, #FFD700);
-}
-
-/* Навигация (стрелки) */
 .swiper-button-next,
 .swiper-button-prev {
     color: white;
 }
 
-/* Пагинация (точки) */
 .swiper-pagination-bullet {
     background: #FFD700 !important;
 }
 
-/* Контейнер */
 .deposit-bonus-container {
     width: 100%;
     max-width: 450px;
@@ -388,12 +322,11 @@ body {
     justify-content: center;
 }
 
-/* Заголовок */
 .deposit-title {
     font-size: 22px;
     font-weight: bold;
     color: white;
-    text-shadow: 2px 0px 3px #FFE785, 0px 0px 20px #ffd700;
+    text-shadow: 2px 0 3px #FFE785, 0 0 20px #ffd700;
 }
 
 .deposit-input-section {
@@ -459,7 +392,7 @@ body {
 .bonus-title {
     font-size: 14px;
     font-weight: bold;
-    color: rgba(255, 255, 255, 0.7); /* Lighter white */
+    color: rgba(255, 255, 255, 0.7);
     margin: 0;
 }
 
@@ -501,7 +434,6 @@ body {
     transform: rotate(180deg);
 }
 
-/* Поле ввода депозита */
 .deposit-input-container {
     display: flex;
     justify-content: space-around;
@@ -528,7 +460,6 @@ body {
     margin-left: 10px;
 }
 
-/* Кнопка */
 .deposit-button {
     display: inline-block;
     background: linear-gradient(to right, #FFD700, #FFA500);
@@ -546,7 +477,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Соцсети */
 .social-icons {
     display: flex;
     justify-content: center;
@@ -592,7 +522,217 @@ img.red-boomerang {
     width: 30px;
 }
 
-/* Адаптивность */
+.slots-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.slot-item {
+    width: 220px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 8px;
+    position: relative;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.slot-item:hover {
+    transform: scale(1.05);
+}
+
+.slot-image {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.slot-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.top-slot {
+    position: relative;
+    left: 60px;
+    bottom: 35px;
+    background: #FFD700;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.slot-info {
+    padding: 10px;
+}
+
+.slot-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: white;
+}
+
+.slot-provider {
+    font-size: 14px;
+    color: #bbb;
+    display: block;
+}
+
+.slot-favorite {
+    font-size: 20px;
+    color: #bbb;
+    cursor: pointer;
+    transition: color 0.3s;
+    margin-top: 5px;
+}
+
+.slot-favorite:hover {
+    color: red;
+}
+
+.categories-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #1A1A1A;
+    padding: 10px;
+    border-radius: 8px;
+    gap: 20px;
+}
+
+.search-block {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    flex-grow: 1;
+    padding: 5px 10px;
+}
+
+.search-input::placeholder {
+    color: #888;
+}
+
+.search-input:hover {
+    box-shadow: inset 0 0 0 4px #ffcd34;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-item {
+    background: #494b4e url(../hover-gray.svg) no-repeat center / cover;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    color: #fff;
+    padding: 10px 35px;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    overflow: hidden;
+}
+
+.category-item:hover {
+    background-image: unset;
+}
+
+.category-item:hover:after {
+    content: '';
+    display: inline-flex;
+    align-items: center;
+    position: absolute;
+    color: #fff;
+    padding: 15px 35px;
+    border-radius: 9999px;
+    text-decoration: none;
+    background: url(../hover-gray.svg) no-repeat center / 125%;
+    filter: invert(22%) sepia(60%) saturate(4580%) hue-rotate(330deg) brightness(102%) contrast(98%);
+    width: 100%;
+    height: 100%;
+    left: -47px;
+    top: -11px;
+}
+
+.category-icon {
+    margin-right: 6px;
+    font-size: 16px;
+    line-height: 1;
+    z-index: 9;
+}
+
+.category-title {
+    font-size: 14px;
+    line-height: 1;
+    z-index: 9;
+    font-weight: 800;
+}
+
+.categories-bar {
+    display: grid;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-input {
+    width: 100%;
+    border-radius: 30px;
+    color: black;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF url(../rigtside.svg) no-repeat 100% / 9%;
+    z-index: 10;
+    position: relative;
+    cursor: pointer;
+    line-height: 47px;
+    transition: all .2s;
+    border: none;
+    padding: 0 18px;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: yellow;
+    z-index: 900;
+}
+
+.search_button_cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    width: 35px;
+    height: 35px;
+    z-index: 900;
+    right: 408px;
+    border-radius: 30px;
+    position: absolute;
+}
+
 @media screen and (max-width: 1024px) {
     .container {
         width: 90%;

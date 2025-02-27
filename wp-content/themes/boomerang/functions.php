@@ -1,6 +1,5 @@
 <?php
-// Подключаем стили и скрипты
-function boomerang_enqueue_scripts()
+function boomerang_enqueue_scripts(): void
 {
     wp_enqueue_style('boomerang-main', get_template_directory_uri() . '/assets/css/main.css');
     wp_enqueue_script('boomerang-scripts', get_template_directory_uri() . '/assets/js/scripts.js', ['jquery'], null, true);
@@ -8,8 +7,7 @@ function boomerang_enqueue_scripts()
 
 add_action('wp_enqueue_scripts', 'boomerang_enqueue_scripts');
 
-// Регистрация меню
-function boomerang_register_menus()
+function boomerang_register_menus(): void
 {
     register_nav_menus([
         'main_menu' => 'Главное меню',
@@ -18,8 +16,7 @@ function boomerang_register_menus()
 
 add_action('after_setup_theme', 'boomerang_register_menus');
 
-// Регистрация кастомного типа записей "Слоты"
-function register_slot_post_type()
+function register_slot_post_type(): void
 {
     register_post_type('slot', [
         'labels' => [
@@ -36,8 +33,7 @@ function register_slot_post_type()
 
 add_action('init', 'register_slot_post_type');
 
-// API для вывода JSON со слотами
-function get_slots_api()
+function get_slots_api(): WP_Error|WP_REST_Response|WP_HTTP_Response
 {
     $args = ['post_type' => 'slot', 'posts_per_page' => -1];
     $query = new WP_Query($args);
@@ -56,7 +52,7 @@ function get_slots_api()
     return rest_ensure_response($slots);
 }
 
-function register_slots_api_route()
+function register_slots_api_route(): void
 {
     register_rest_route('testtask/v1', '/slots/get', [
         'methods' => 'GET',
@@ -67,101 +63,167 @@ function register_slots_api_route()
 
 add_action('rest_api_init', 'register_slots_api_route');
 
-
-function slots_shortcode($atts)
+function categories_bar_shortcode(): bool|string
 {
-    // Set default attributes
-    $atts = shortcode_atts(array(
-        'posts_per_page' => 5, // Default number of posts
-        'order' => 'DESC', // Sorting order
-        'orderby' => 'date' // Order by date
-    ), $atts, 'slots');
+    $categories = [
+        [
+            'title' => 'Топ',
+            'icon' => 'assets/icons/crown.svg',
+            'link' => '#'
+        ],
+        [
+            'title' => 'Новые',
+            'icon' => 'assets/icons/plus.svg',
+            'link' => '#'
+        ],
+        [
+            'title' => 'Популярные',
+            'icon' => 'assets/icons/popular.svg',
+            'link' => '#'
+        ],
+        [
+            'title' => 'Рекомендуем',
+            'icon' => 'assets/icons/roulletes.svg',
+            'link' => '#'
+        ],
+        [
+            'title' => 'Эксклюзив',
+            'icon' => 'assets/icons/bonus-buys.svg',
+            'link' => '#'
+        ],
+        [
+            'title' => 'Слоты',
+            'icon' => 'assets/icons/iconslotsboom.svg',
+            'link' => '#'
+        ],
+        [
+            'title' => 'Рулетки',
+            'icon' => 'assets/icons/iconlivecasinoboom.svg',
+            'link' => '#'
+        ],
+        [
+            'title' => 'Настольные',
+            'icon' => 'assets/icons/iconall.png',
+            'link' => '#'
+        ],
+    ];
 
-    // Query slots post type
-    $query = new WP_Query(array(
-        'post_type' => 'slot',
-        'posts_per_page' => $atts['posts_per_page'],
-        'order' => $atts['order'],
-        'orderby' => $atts['orderby']
-    ));
-
-    // Start output buffer
     ob_start();
-
-    if ($query->have_posts()) {
-        echo '<div class="slots-list">';
-        while ($query->have_posts()) {
-            $query->the_post();
-            ?>
-            <div class="slot-item">
-                <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                <div class="slot-content"><?php the_excerpt(); ?></div>
+    ?>
+    <div class="categories-bar">
+        <div class="search-block">
+            <label style="    width: 80%;">
+                <input type="text" placeholder="Поиск" class="search-input">
+            </label>
+            <div class="search_button_cont">
+                <button class="search-button">
+                    <?php echo file_get_contents(get_template_directory() . '/assets/searchicon.svg'); ?>
+                </button>
             </div>
-            <?php
-        }
-        echo '</div>';
-    } else {
-        echo '<p>No slots found.</p>';
-    }
+        </div>
 
-    // Reset post data
-    wp_reset_postdata();
+        <div class="categories-list">
+            <?php foreach ($categories as $cat): ?>
+                <a class="category-item" href="<?php echo esc_url($cat['link']); ?>">
+                      <span class="category-icon">
+                        <?php
+                        $icon_path = get_template_directory() . '/' . $cat['icon'];
+                        if (file_exists($icon_path)) {
+                            echo file_get_contents($icon_path);
+                        } else {
+                            echo '<!-- SVG not found -->';
+                        }
+                        ?>
+                    </span>
+                    <span class="category-title"><?php echo esc_html($cat['title']); ?></span>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php
 
-    // Return buffer content
     return ob_get_clean();
 }
 
-// Register shortcode
-add_shortcode('slots', 'slots_shortcode');
+add_shortcode('categories_bar', 'categories_bar_shortcode');
 
 
-//slider
-function custom_slider_shortcode()
+function slots_shortcode(): bool|string
 {
+    $slots = [
+        [
+            'image' => 'assets/game/bufalo_extra.jpg',
+            'provider' => 'Zillion',
+            'is_top_slot' => true,
+            'link' => '#'
+        ],
+        [
+            'image' => 'assets/game/plinko.webp',
+            'provider' => 'BetSoft',
+            'is_top_slot' => true,
+            'link' => '#'
+        ],
+        [
+            'image' => 'assets/game/bookofdeadicon.jpg',
+            'provider' => 'BetSoft',
+            'is_top_slot' => true,
+            'link' => '#'
+        ],
+        [
+            'image' => 'assets/game/joker400x600.svg',
+            'provider' => 'CasinoMax',
+            'is_top_slot' => true,
+            'link' => '#'
+        ],
+        [
+            'image' => 'assets/game/dggsponentialbanneropt400x600logotop.svg',
+            'provider' => 'BetSoft',
+            'is_top_slot' => true,
+            'link' => '#'
+        ],
+
+        [
+            'image' => 'assets/game/cashofgods400x600fix.svg',
+            'provider' => 'SpinTech',
+            'is_top_slot' => true,
+            'link' => '#'
+        ],
+    ];
+
     ob_start();
     ?>
-    <div class="custom-slider">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <!-- Слайд 1 -->
-                <div class="swiper-slide">
-                    <img src="assets/sada.png" alt="" style="width: 300px;height: 300px">
-                    <div class="slider-text">
-                        <h2>Приветственный Бонус</h2>
-                        <p><span class="highlight">100% ДО</span> 245,000₸ + 200 ФС</p>
-                        <a href="#" class="slider-button">Зарегистрируйтесь</a>
+    <div class="slots-list">
+        <?php foreach ($slots as $slot): ?>
+            <div class="slot-item">
+                <a href="<?php echo htmlspecialchars($slot['link']); ?>" class="slot-card">
+                    <div class="slot-image">
+                        <img src="<?php echo get_theme_file_uri() . '/' . $slot['image']; ?>"
+                             alt="<?php echo htmlspecialchars($slot['provider']); ?>">
+                        <?php if ($slot['is_top_slot']): ?>
+                            <span class="top-slot">Топ Слот</span>
+                        <?php endif; ?>
                     </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <img src="assets/sdad.png" alt="" style="width: 300px;height: 300px">
-                    <div class="slider-text">
-                        <h2>Эксклюзивное Предложение</h2>
-                        <p><span class="highlight">50% ДО</span> 150,000₸ + 100 ФС</p>
-                        <a href="#" class="slider-button">Подробнее</a>
+                    <div class="slot-info">
+                        <span class="slot-provider"><?php echo htmlspecialchars($slot['provider']); ?></span>
+                        <div class="slot-favorite">❤️</div>
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-        </div>
+        <?php endforeach; ?>
     </div>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <?php
     return ob_get_clean();
 }
 
-add_shortcode('custom_slider', 'custom_slider_shortcode');
+add_shortcode('slots', 'slots_shortcode');
 
-function deposit_bonus_shortcode()
+function deposit_bonus_shortcode(): bool|string
 {
     ob_start();
     ?>
     <div class="deposit-container">
-        <img src="<?= get_theme_file_uri() . '/assets/red-boomerang.webp'?>" alt="black-boomerang" class="red-boomerang">
+        <img src="<?= get_theme_file_uri() . '/assets/red-boomerang.webp' ?>" alt="black-boomerang"
+             class="red-boomerang">
         <div>
             <h2 class="deposit-title">СДЕЛАЙТЕ ДЕПОЗИТ И ИГРАЙТЕ</h2>
 
@@ -183,39 +245,46 @@ function deposit_bonus_shortcode()
                     </div>
                 </div>
 
-            <div class="deposit-input-container">
-                <div class="deposit-input-section">
-                    <label>
-                        <input type="number" class="deposit-input" value="60" min="10" step="10">
-                    </label>
+                <div class="deposit-input-container">
+                    <div class="deposit-input-section">
+                        <label>
+                            <input type="number" class="deposit-input" value="60" min="10" step="10">
+                        </label>
+                    </div>
+                    <div class="deposit-input-section-two">
+                        <label class="custom-select-container">
+                            <select class="currency-select">
+                                <option value="USD" style="background-color: #c2c2c2;width: 45%;">USD</option>
+                                <option value="EUR" selected style="background-color: #c2c2c2;width: 45%;">EUR</option>
+                                <option value="RUB" style="background-color: #c2c2c2;width: 45%;">RUB</option>
+                            </select>
+                        </label>
+                    </div>
+
                 </div>
-                <div class="deposit-input-section-two">
-                    <label class="custom-select-container">
-                        <select class="currency-select">
-                            <option value="USD" style="background-color: #c2c2c2;width: 45%;">USD</option>
-                            <option value="EUR" selected style="background-color: #c2c2c2;width: 45%;">EUR</option>
-                            <option value="RUB" style="background-color: #c2c2c2;width: 45%;">RUB</option>
-                        </select>
-                    </label>
+
+                <div class="btn is-60 vip-slider__btn show-user" style="background-color: #ffcd34">
+                    <span class="btn_span">Играть сейчас </span>
                 </div>
 
             </div>
-
-            <div class="btn is-60 vip-slider__btn show-user" style="background-color: #ffcd34">
-                <span class="btn_span">Играть сейчас </span>
-            </div>
-
-        </div>
             <div class="social-icons">
-                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/visa-svgrepo-com.svg'?>" alt="visa_log" class="icon_in_deposit"></span>
-                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/mastercard.svg'?>" alt="mastercard" class="icon_in_deposit"></span>
-                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/bank.svg'?>" alt="paymsystem_footer_banktransfer" class="icon_in_deposit"></span>
-                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/ethereum.svg'?>" alt="ethereum" class="ethereum"></span>
-                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/usdt.svg'?>" alt="ethereum" class="ethereum"></span>
-                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/bitcoin-btc-logo.svg'?>" alt="bitcoin-btc-logo.svg" class="bitcoin"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/visa-svgrepo-com.svg' ?>"
+                                             alt="visa_log" class="icon_in_deposit"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/mastercard.svg' ?>"
+                                             alt="mastercard" class="icon_in_deposit"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/bank.svg' ?>"
+                                             alt="paymsystem_footer_banktransfer" class="icon_in_deposit"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/ethereum.svg' ?>" alt="ethereum"
+                                             class="ethereum"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/usdt.svg' ?>" alt="ethereum"
+                                             class="ethereum"></span>
+                <span class="icon_span"><img src="<?= get_theme_file_uri() . '/assets/bitcoin-btc-logo.svg' ?>"
+                                             alt="bitcoin-btc-logo.svg" class="bitcoin"></span>
             </div>
         </div>
-        <img src="<?= get_theme_file_uri() . '/assets/gray-boomerang.png'?>" alt="gray-boomerang" class="gray-boomerang">
+        <img src="<?= get_theme_file_uri() . '/assets/gray-boomerang.png' ?>" alt="gray-boomerang"
+             class="gray-boomerang">
     </div>
 
     <?php
