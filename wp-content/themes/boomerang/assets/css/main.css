@@ -281,6 +281,7 @@ body {
     transition: opacity 0.3s;
     z-index: 1000;
 }
+
 .slot-hover-image {
     position: relative;
 }
@@ -288,21 +289,25 @@ body {
 .slot-item:hover .slot-hover-image {
     opacity: 1;
 }
+
 .slot-item:hover .slot-hover-content {
     opacity: 1;
 }
-.hover-image{
+
+.hover-image {
     position: absolute;
     left: -3em;
-    bottom: -10em;
-    width: 150px;
+    bottom: -12em;
+    width: 200px;
     height: auto;
     transform: scale(.6);
     transition: all .25s;
 }
+
 .slot-item:hover .hover-image {
     transform: scale(1.2);
 }
+
 .play-button {
     background-color: #ffcd34;
     border: none;
@@ -317,6 +322,7 @@ body {
     height: 88px;
     position: relative;
 }
+
 .play-button::before {
     content: "";
     position: absolute;
@@ -329,6 +335,7 @@ body {
     transform: translate(-60px, 0%);
     opacity: 1;
 }
+
 @keyframes rotateAroundButton {
     0% {
         transform: rotate(0deg) translateX(-65px) rotate(0deg);
@@ -341,10 +348,12 @@ body {
 .play-button:hover::before {
     animation: rotateAroundButton 0.4s linear 1 forwards;
 }
+
 .play-button:hover .img_slot_hover {
     filter: invert(68%) sepia(73%) saturate(7467%) hue-rotate(331deg) brightness(106%) contrast(98%);
     animation: playHoverBtn 0.35s ease-in-out; /* Анимация запускается */
 }
+
 @keyframes playHoverBtn {
     0% {
         transform: scale(1);
@@ -367,14 +376,24 @@ body {
 }
 
 .img_slot_hover {
-    width: 70%;
+    width: 100%;
     height: auto;
+    filter: invert(1);
 }
 
 .hover-text {
-    margin-top: 10px;
     color: #fff;
     text-align: center;
+    z-index: 13;
+    margin: 36px auto 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    position: relative;
+}
+
+.hover-text:hover {
+    color: #ffdc48;
 }
 
 *,
@@ -656,7 +675,8 @@ img.red-boomerang {
     border-radius: 10px;
     transition: transform 0.3s;
 }
-.slot-item:hover{
+
+.slot-item:hover {
     border-radius: 10px;
 }
 
@@ -677,7 +697,7 @@ img.red-boomerang {
 
 .top-slot {
     position: relative;
-    left: 60px;
+    left: 13rem;
     bottom: 35px;
     background: #FFD700;
     color: #000;
@@ -973,7 +993,7 @@ img.red-boomerang {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .footer__languages {
@@ -1006,27 +1026,62 @@ img.red-boomerang {
     height: 40px;
 }
 
-/* Кнопка поддержки */
 .footer__support {
-    background: #ffcc00;
+    background: #edf2ff url(../footer/supic.svg) no-repeat 12px 12px;
+    border-radius: 40px;
+    flex-shrink: 0;
+    height: 48px;
+    line-height: 48px;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 0 4px;
+    width: 60%;
+}
+
+.footer__support::before {
+    background-image: url(../footer/support-footer.svg);
+    filter: invert(89%) sepia(70%) saturate(2607%) hue-rotate(320deg) brightness(103%) contrast(90%);
+    transform-origin: 100%;
+    background-position: 100%;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    transition: transform .2s;
+    top: 0;
+    right: 0;
+    content: "";
+    z-index: 2;
+    background-repeat: no-repeat;
+    display: block;
+    position: absolute;
+}
+
+.footer__support::after {
+    background-image: url(../footer/supphad.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 16px;
+    height: 16px;
+    top: 16px;
+    left: 16px;
+    content: "";
+    z-index: 2;
+    display: block;
+    position: absolute;
+}
+
+.ng-scope {
+    z-index: 5;
+    text-transform: capitalize;
     color: #000;
-    padding: 10px 20px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
-    transition: background 0.3s ease, transform 0.2s ease;
+    padding: 0 25px 0 15px;
+    font-size: 16px;
+    font-weight: 700;
+    position: relative;
 }
 
-.footer__support:hover {
-    background: #ffd633;
-    transform: scale(1.05);
-}
-
-/* Платежные системы */
 .footer__payments {
     flex-wrap: wrap;
     justify-content: center;
@@ -1131,6 +1186,14 @@ img.footer__licenses_img {
     }
 }
 
+@media (max-width: 410px) {
+    .hover-image {
+        left: -5em;
+        bottom: -16em;
+        width: 260px;
+    }
+}
+
 @media (max-width: 390px) {
     .footer__nav a {
         font-size: 12px;
@@ -1144,4 +1207,56 @@ img.footer__licenses_img {
     .footer__licenses img {
         height: 25px;
     }
+}
+
+.lang__item {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.lang__dropdown {
+    display: none;
+    bottom: -50px;
+    white-space: nowrap;
+    text-align: center;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: #244091;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 145.23%;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 6;
+}
+
+.lang__dropdown::before {
+    content: "";
+    border-bottom: 8px solid #244091;
+    border-left: 8px solid #0000;
+    border-right: 8px solid #0000;
+    width: 0;
+    display: block;
+    position: absolute;
+    top: -8px;
+    left: calc(50% - 8px);
+}
+
+.lang__item:hover .lang__dropdown {
+    display: block;
+}
+
+.lang__dropdown a {
+    display: block;
+    color: #fff;
+    font-size: 15px;
+}
+
+.lang__dropdown a:hover {
+    background-color: #444;
 }

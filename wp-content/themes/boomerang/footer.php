@@ -2,9 +2,19 @@
     <div class="footer__container">
         <div class="footer__top">
             <div class="footer__languages">
-                <a href="/de/" class="lang__item"><img src="<?= get_theme_file_uri() . '/assets/footer/de.svg' ?>" alt="Deutsch"></a>
-                <a href="/en/" class="lang__item active"><img src="<?= get_theme_file_uri() . '/assets/footer/en.svg' ?>" alt="English"></a>
-                <a href="#" class="footer__support">Support</a>
+                <div class="lang__item">
+                    <img src="<?= get_theme_file_uri() . '/assets/footer/de.svg' ?>" alt="Languages">
+                    <div class="lang__dropdown">
+                        <a href="/de/">DE</a>
+                    </div>
+                </div>
+                <div class="lang__item">
+                    <img src="<?= get_theme_file_uri() . '/assets/footer/en.svg' ?>" alt="English">
+                    <div class="lang__dropdown">
+                        <a href="/de/">EN</a>
+                    </div>
+                </div>
+                <a href="#" class="footer__support"><span class="ng-scope">Support</span></a>
             </div>
         </div>
 
