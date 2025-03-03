@@ -190,7 +190,7 @@ function slots_shortcode(): bool|string
                     </div>
                     <div class="slot-info">
                         <span class="slot-provider"><?php echo htmlspecialchars($slot['provider']); ?></span>
-                        <div class="slot-favorite"> <img class="img_slot_hover"
+                        <div class="slot-favorite"> <img class="img_slot_heart"
                                                          src="<?php echo get_theme_file_uri() . '/' . "assets/heart.svg" ?>"
                                                          alt="<?php echo htmlspecialchars("assets/heart.svg"); ?>"></div>
                     </div>

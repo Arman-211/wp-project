@@ -376,6 +376,11 @@ body {
 }
 
 .img_slot_hover {
+    width: 70%;
+    height: auto;
+}
+
+.img_slot_heart {
     width: 100%;
     height: auto;
     filter: invert(1);
