@@ -33,24 +33,6 @@ function register_slot_post_type(): void
 
 add_action('init', 'register_slot_post_type');
 
-function get_slots_api(): WP_Error|WP_REST_Response|WP_HTTP_Response
-{
-    $args = ['post_type' => 'slot', 'posts_per_page' => -1];
-    $query = new WP_Query($args);
-    $slots = [];
-
-    if ($query->have_posts()) :
-        while ($query->have_posts()) : $query->the_post();
-            $slots[] = [
-                'name' => get_the_title(),
-                'thumb' => get_the_post_thumbnail_url(),
-                'slug' => get_permalink()
-            ];
-        endwhile;
-    endif;
-
-    return rest_ensure_response($slots);
-}
 
 function register_slots_api_route(): void
 {
@@ -111,20 +93,23 @@ function categories_bar_shortcode(): bool|string
     ob_start();
     ?>
     <div class="categories-bar">
-        <div class="search-block">
-            <label style="    width: 80%;">
-                <input type="text" placeholder="Поиск" class="search-input">
-            </label>
-            <div class="search_button_cont">
-                <button class="search-button">
-                    <?php echo file_get_contents(get_template_directory() . '/assets/searchicon.svg'); ?>
-                </button>
+        <label class="categories-label">
+            <input type="text" placeholder="Поиск" class="search-input">
+            <button class="search-button">
+                <?php echo file_get_contents(get_template_directory() . '/assets/searchicon.svg'); ?>
+            </button>
+        </label>
+        <button class="provider-button">
+            <div class="provider-button-block">
+                <?php echo file_get_contents(get_template_directory() . '/assets/left.svg'); ?>
+                <span class="provider-button-title">Провайдеры</span>
             </div>
-        </div>
-
-        <div class="categories-list">
-            <?php foreach ($categories as $cat): ?>
-                <a class="category-item" href="<?php echo esc_url($cat['link']); ?>">
+            <?php echo file_get_contents(get_template_directory() . '/assets/open-arrow.svg'); ?>
+        </button>
+    </div>
+    <div class="categories-list">
+        <?php foreach ($categories as $cat): ?>
+            <a class="category-item" href="<?php echo esc_url($cat['link']); ?>">
                       <span class="category-icon">
                         <?php
                         $icon_path = get_template_directory() . '/' . $cat['icon'];
@@ -135,11 +120,11 @@ function categories_bar_shortcode(): bool|string
                         }
                         ?>
                     </span>
-                    <span class="category-title"><?php echo esc_html($cat['title']); ?></span>
-                </a>
-            <?php endforeach; ?>
-        </div>
+                <span class="category-title"><?php echo esc_html($cat['title']); ?></span>
+            </a>
+        <?php endforeach; ?>
     </div>
+    <h2 class="slot-list-title">Топ Слот</h2>
     <?php
 
     return ob_get_clean();
@@ -205,7 +190,22 @@ function slots_shortcode(): bool|string
                     </div>
                     <div class="slot-info">
                         <span class="slot-provider"><?php echo htmlspecialchars($slot['provider']); ?></span>
-                        <div class="slot-favorite">❤️</div>
+                        <div class="slot-favorite">❤</div>
+                    </div>
+                    <div class="slot-hover-content">
+                        <button class="play-button">
+                            <span class="play-icon">
+                                <img class="img_slot_hover"
+                                     src="<?php echo get_theme_file_uri() . '/' . "assets/slot_right.svg" ?>"
+                                     alt="<?php echo htmlspecialchars("assets/slot_right.svg"); ?>">
+                            </span>
+                        </button>
+                        <p class="hover-text">Demo</p>
+                        <div class="slot-hover-image">
+                            <img class="hover-image"
+                                 src="<?php echo get_theme_file_uri() . '/' . "assets/slot-hover.svg"; ?>"
+                                 alt="Hover Image">
+                        </div>
                     </div>
                 </a>
             </div>
